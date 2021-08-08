@@ -1,0 +1,19 @@
+{
+  "name": "algorithm-show",
+  "version": "1.0.0",
+  "description": "Record the commonly used algorithms.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luojh007/algorithm-show.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luojh007/algorithm-show/issues"
+  },
+  "homepage": "https://github.com/luojh007/algorithm-show#readme"
+}
