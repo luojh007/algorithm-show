@@ -4,7 +4,14 @@ function isArray (s) {
 function isFunction (f) {
     return typeof f === 'function'
 }
+
+function swap (i, j) {
+    let t = i
+    i = j
+    j = t
+}
 module.exports = {
     isFunction,
-    isArray
+    isArray,
+    swap
 }
