@@ -5,6 +5,20 @@
  * @return {Function}
  */
 
+function curry1 (fn, callback) {
+    let arg = new Array()
+    let timer
+    return function handle () {
+        arg = arg.concat(Array.from(arguments))
+        if (timer) {
+            clearTimeout(timer)
+        }
+        timer = setTimeout(() => {
+            callback(fn(...arg))
+        })
+        return handle
+    }
+}
 function curry (fn) {
     let arg = new Array()
     return function handle () {
@@ -23,5 +37,5 @@ function add () {
     }, 0)
 }
 
-const curryAdd = curry(add)
-curryAdd(1)(2)(3)()
+const curryAdd = curry(add, (total) => console.log(total))
+curryAdd(1)(2)(3)
