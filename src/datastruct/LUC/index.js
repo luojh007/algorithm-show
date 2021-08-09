@@ -12,7 +12,7 @@ class Node {
         this.pre = null
     }
 }
-class LUC {
+module.exports = class LUC {
     constructor(capacity) {
         // 构造链表，设置虚节点
         this.head = new Node()
@@ -59,12 +59,23 @@ class LUC {
         this._deleteNode(vaildNode)
         this._number--
     }
-    // 操作链表
+    /**
+     * 更新节点至队尾
+     * 
+     * @private
+     * @param {Node} node
+     */
     _updateNode (node) {
         node.pre.next = node.next
         node.next.pre = node.pre
         this._addNode(node)
     }
+    /**
+     * 增加节点
+     * 
+     * @private
+     * @param {Node} node 
+     */
     _addNode (node) {
         // 维护双向链表
         this.tail.pre.next = node
@@ -73,6 +84,12 @@ class LUC {
         this.tail.pre = node
 
     }
+    /**
+     * 删除节点
+     * 
+     * @private
+     * @param {Node} node 
+     */
     _deleteNode (node) {
         node.pre.next = node.next
         node.next.pre = node.pre
@@ -82,13 +99,3 @@ class LUC {
     }
 }
 
-let cache = new LUC(3)
-
-cache.set(1, 1)
-cache.set(2, 2)
-cache.set(3, 3)
-cache.get(1)
-cache.set(4, 4)
-cache.set(5, 5)
-cache.set(6, 6)
-console.log(cache)
