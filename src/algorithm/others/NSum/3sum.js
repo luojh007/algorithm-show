@@ -3,18 +3,25 @@
  */
 
 const twoSumTarget = require('./2sum')
-
-module.exports = function threeSumTarget (source = [], target) {
-    const result = []
-    for (let i = 0; i < source.length; i++) {
-        const _target = -(target - source[i])
-        const _result = twoSumTarget(source, i, _target)
-        for (let it of _result) {
-            result.push(it)
+const sort = require('../../Sort/quick')
+module.exports = function threeSum(nums, target) {
+    let ans = new Array(0)
+    // 1.排序
+    sort(nums)
+    let i = 0
+    while (i < nums.length) {
+        const start = nums[i]
+        const _target = target - start
+        const _res = twoSumTarget(nums, i + 1, _target)
+        for (let it of _res) {
+            it.push(start)
+            ans.push(it)
         }
-        while (i + 1 < source.length && source[i] === source[i + 1]) {
+        while (i < nums.length && nums[i] === start) {
             i++
         }
     }
-    return result
-}
+    return ans
+
+};
+

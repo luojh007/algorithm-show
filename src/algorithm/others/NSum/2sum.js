@@ -7,32 +7,29 @@
  * 
  */
 const sort = require('../../Sort/quick')
-module.exports = function twoSumTarget (source = [], start, target) {
+module.exports = function twoSumTarget(source = [], start, target) {
     // 排序
     sort(source)
     const result = []
-    let left = start, right = source.length - 1
+    let s = start, e = source.length - 1
 
-    while (left < right) {
-        const sum = source[left] + source[right]
+    while (s < e) {
+        const left = source[s]
+        const right = source[e]
+        const sum = left + right
         if (sum > target) {
-            right--
-            while (source[right] && source[right + 1] === source[right]) {
-                right--
+            while (s < e && right === source[e]) {
+                e--
             }
         } else if (sum < target) {
-            left++
-            while (source[left] && source[left - 1] === source[left]) {
-                left++
+            while (s < e && left === source[s]) {
+                s++
             }
         } else {
-            result.push([source[left], source[right]])
-            left++
-            right--
-            while (left < right && source[left] === source[left - 1]
-                && source[right] === source[right + 1]) {
-                left++
-                right--
+            result.push([left, right])
+            while (s < e && source[s] === left && source[e] === right) {
+                s++
+                e--
             }
         }
     }
