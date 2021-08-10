@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "/Users/admin/work/algorithm-show/src/algorithm/Sort/merge.js"
+            "program": "/Users/luojh/my_project/algorithm-show/src/algorithm/others/Calculator/index.js"
         }
     ]
 }

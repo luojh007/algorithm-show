@@ -3,7 +3,7 @@
  * 先排序后分割，前序
  */
 
-function quick (arr = []) {
+module.exports = function quick (arr = []) {
     recursion(0, arr.length - 1)
     return arr
     function recursion (left, right) {
@@ -31,5 +31,3 @@ function quick (arr = []) {
         arr[j] = tmp
     }
 }
-
-console.log(quick([5, 1, 3, 2, 9, 6, 8, 4]))
