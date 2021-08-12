@@ -1,5 +1,5 @@
-const LUC = require('../index')
-let cache = new LUC(3)
+const LRU = require('../index')
+let cache = new LRU(3)
 
 cache.set(1, 1)
 cache.set(2, 2)
