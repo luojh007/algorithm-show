@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "/Users/luojh/my_project/algorithm-show/src/algorithm/DFS/vaildBracket.js"
+            "program": "/Users/luojh/my_project/algorithm-show/src/algorithm/DFS/IP-recovery.js"
         }
     ]
 }
