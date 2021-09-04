@@ -11,6 +11,7 @@ class ListNode extends Node {
         this.pre = null
         this.next = null
         this.key = key
+        this.val = value || undefined
     }
 }
 module.exports = {
