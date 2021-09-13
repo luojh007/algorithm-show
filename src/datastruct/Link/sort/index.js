@@ -9,11 +9,11 @@
 
 import { ListNode } from '../../index'
 
-function sortLink (head) {
+function sortLink(head) {
     const ans = new ListNode()
     let pre = ans
     pre.next = head
-    let len
+    let len = 0
     //1. 计算链表长度
     while (pre.next) {
         len++
@@ -41,12 +41,12 @@ function sortLink (head) {
      * 
      * @return 返回的下一个节点
      */
-    function cut (node, n) {
+    function cut(node, n) {
         let p = node
         while (p && --n) {
             p = p.next
         }
-        if (p === undefined) {
+        if (!p) {
             return null
         }
         let next = p.next
@@ -60,14 +60,16 @@ function sortLink (head) {
      * @param {ListNode} right 右节点
      * @return 返回新的 排序好的节点
      */
-    function merge (left, right) {
+    function merge(left, right) {
         let ans = new ListNode()
         let pre = ans
         while (left && right) {
             if (left.val < right.val) {
                 pre.next = left
+                left = left.next
             } else {
                 pre.next = right
+                right = right.next
             }
             pre = pre.next
         }
