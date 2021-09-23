@@ -2,17 +2,18 @@
  * 合并 reducer
  */
 
-function combineReducers(reducers) {
+function combineReducers (reducers) {
 
     const keys = Object.keys(reducers)
-    const resReducers = {}
+    const finalReducers = {}
     // 校验 reducers合法性
     for (let i = 0; i < keys.length; i++) {
+        const key = keys[i]
         if (typeof reducers[i] === 'function') {
-            resKeys[i] = reducers[i]
+            finalReducers[key] = finalReducers[key]
         }
     }
-    const resKeys = Object.keys(resReducers)
+    const resKeys = Object.keys(finalReducers)
 
 
     return function (state, action) {
