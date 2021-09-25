@@ -3,92 +3,97 @@
  * 1. 查找、删除复杂度都为 1
  * 2. 每次查找、修改时序置顶
  */
- const { ListNode } = require('../index')
- module.exports = class LRU {
-     constructor(capacity) {
-         // 构造链表，设置虚节点
-         this.head = new ListNode()
-         this.tail = new ListNode()
-         this.head.next = this.tail
-         this.tail.pre = this.head
-         // 容量
-         this.capacity = capacity
-         // 当前数量
-         this._number = 0
-         // 构造Map，查找时间复杂度为 1
-         this.keyToNode = new Map()
-     }
- 
-     // 新增元素
-     set (key, value) {
-         const vaildNode = this.keyToNode.get(key)
-         if (vaildNode) {
-             vaildNode.value = value
-             this._updateNode(vaildNode)
-         } else {
-             // 达到容量，删除头节点
-             if (this._number === this.capacity) {
-                 this._deleteNode(this.head.next)
-                 this._number--
-             }
-             const newNode = new ListNode(key, value)
-             this.keyToNode.set(key, newNode)
-             this._addNode(newNode)
-             this._number++
-         }
-     }
-     // 获取元素，将元素更新到队尾
-     get (key) {
-         const vaildNode = this.keyToNode.get(key)
-         if (!vaildNode) return -1
- 
-         this._updateNode(vaildNode)
-         return vaildNode.value
-     }
-     delete (key) {
-         const vaildNode = this.keyToNode.get(key)
-         if (!vaildNode) return
-         this._deleteNode(vaildNode)
-         this._number--
-     }
-     /**
-      * 更新节点至队尾
-      * 
-      * @private
-      * @param {Node} node
-      */
-     _updateNode (node) {
-         node.pre.next = node.next
-         node.next.pre = node.pre
-         this._addNode(node)
-     }
-     /**
-      * 增加节点
-      * 
-      * @private
-      * @param {ListNode} node 
-      */
-     _addNode (node) {
-         // 维护双向链表
-         this.tail.pre.next = node
-         node.pre = this.tail.pre
-         node.next = this.tail
-         this.tail.pre = node
- 
-     }
-     /**
-      * 删除节点
-      * 
-      * @private
-      * @param {Node} node 
-      */
-     _deleteNode (node) {
-         node.pre.next = node.next
-         node.next.pre = node.pre
-         this.keyToNode.delete(node.key)
-         node = null
- 
-     }
- }
- 
- 
+const { ListNode } = require('../index')
+// var ListNode = function (v) {
+//     this.val = v === undefined ? null : v
+//     this.next = null
+//     this.pre = null
+// }
+
+var LRUCache = function (capacity) {
+    this.capacity = capacity
+
+    // 构造双向链表，插入O(1)
+    this.head = new ListNode()
+    this.tail = new ListNode()
+    this.head.next = this.tail
+    this.tail.pre = this.head
+    // 构造key-value，查找O(1)
+    this.keyToNode = new Map()
+};
+LRUCache.prototype.moveToHead = function (node) {
+    node.pre.next = node.next
+    node.next.pre = node.pre
+
+    node.next = this.head.next
+    node.next.pre = node
+
+    this.head.next = node
+    node.pre = this.head
+}
+LRUCache.prototype.removeTailNode = function () {
+    const node = this.tail.pre
+    node.pre.next = node.next
+    node.next.pre = node.pre
+    return node
+}
+LRUCache.prototype.insertHead = function (node) {
+    node.next = this.head.next
+    node.next.pre = node
+
+    this.head.next = node
+    node.pre = this.head
+}
+/** 
+ * @param {number} key
+ * @return {number}
+ */
+LRUCache.prototype.get = function (key) {
+    if (!this.keyToNode.has(key)) return -1
+    const node = this.keyToNode.get(key)
+    // 更新，移动到队头
+    this.moveToHead(node)
+    return node.val
+};
+
+/** 
+ * @param {number} key 
+ * @param {number} value
+ * @return {void}
+ */
+LRUCache.prototype.put = function (key, value) {
+    const node = this.keyToNode.get(key)
+    if (node) {
+        node.val = value
+        this.moveToHead(node)
+    } else {
+        // 达到容量
+        if (this.capacity === this.keyToNode.size) {
+            const node = this.removeTailNode()
+            this.keyToNode.delete(node.key)
+        }
+        let node = new ListNode(key, value)
+        this.insertHead(node)
+        this.keyToNode.set(key, node)
+    }
+};
+
+let cache = new LRUCache(2)
+
+console.log(cache.get(2))
+console.log(cache.put(2, 6))
+console.log(cache.get(1))
+console.log(cache.put(1, 5))
+console.log(cache.put(1, 2))
+console.log(cache.get(1))
+console.log(cache.get(2))
+
+// cache.put(1, 1)
+// cache.put(2, 2)
+// cache.get(1)
+// cache.put(3, 3)
+// cache.get(2)
+// cache.put(4, 4)
+// cache.get(1)
+// cache.get(3)
+// cache.get(4)
