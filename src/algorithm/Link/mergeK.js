@@ -2,7 +2,7 @@
  * 合并K个升序链表
  * 归并
  */
-const { ListNode } = require('../../index')
+const { ListNode } = require('../../../datastruct/index')
 function mergeK(list = []) {
     return recursion(0, list.length)
     function recursion(start, end) {
