@@ -5,9 +5,8 @@
 //2. 原型链处理
 //3. 构造方法的借用
 
-function __extend(a, t) {
-    Reflect.setPrototypeOf(a, t)
-    if (Object.prototype) {
+function __extend (a, t) {
+    if (Object.setPrototypeOf) {
         Object.setPrototypeOf(a, t)
     } else if ({ __proto__: [] } instanceof Array) {
         a.__proto__ = t
@@ -19,15 +18,22 @@ function __extend(a, t) {
         }
     }
 
-    function fn() { fn.constructor = a }
-    a.prototype = t === null ? Object.create(null) : (fn.prototype = t.prototype, new fn())
-
+    function fn () { this.constructor = a }
+    fn.prototype = t.prototype
+    a.prototype = t === null ? Object.create(null) : new fn()
 }
 
+
+
+var sub = (
+    function (_super) {
+        __extend(Sub, _super)
+        function Sub () {
+            return _super !== null && _super.apply(this, arguments) || this
+        }
+        return Sub
+    }(father)
+)
+
 var father = function () { }
-
-var sub = function () { }
-
-__extend(sub, father)
-
-console.log(sub.prototype.__proto__)
+var s = new Sub()
