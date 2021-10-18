@@ -6,7 +6,7 @@
  * @param {number} target 目标值
  * 
  */
-const sort = require('../../Sort/quick')
+const sort = require('../Sort/quick')
 module.exports = function twoSumTarget(source = [], start, target) {
     // 排序
     sort(source)
