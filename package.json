@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/luojh007/algorithm-show/issues"
   },
-  "homepage": "https://github.com/luojh007/algorithm-show#readme"
+  "homepage": "https://github.com/luojh007/algorithm-show#readme",
+  "dependencies": {
+    "jest": "^27.3.1"
+  }
 }

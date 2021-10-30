@@ -4,7 +4,7 @@
 
 function useRef(value) {
     const [ref] = useState({ current: value })
-    ref.current = value
+    // ref.current = value
     return ref
 }
 function depsChange(deps1, deps2) {

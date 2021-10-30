@@ -24,16 +24,16 @@ function __extend (a, t) {
 }
 
 
-
-var sub = (
+var father = function () { }
+var Sub = ((
     function (_super) {
         __extend(Sub, _super)
         function Sub () {
             return _super !== null && _super.apply(this, arguments) || this
         }
         return Sub
-    }(father)
-)
+    }
+)(father))
 
-var father = function () { }
+
 var s = new Sub()
