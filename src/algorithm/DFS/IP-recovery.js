@@ -5,32 +5,29 @@
 
 function recovery (s) {
     const ans = new Array(0)
-    recursion(0, [], s)
+    recursion([], 0)
     return ans
-    function recursion (n, path = [], s) {
-        if (n === 4) {
-            if (s.length === 0) ans.push(path.join('.'))
-            return
+
+    function recursion (path = [], i) {
+        if (path.length === 4 && i === s.length) {
+            return ans.push(path.join('.'))
         }
-        // 剪枝
-        if (n > 4 || s.length === 0) return
-        let vaildNum = getVaildNum(s)
-        for (let i = 1; i <= vaildNum; i++) {
-            let cur = s.slice(0, i)
+        if (path.length > 4) return
+        const vaildNum = getVaild(i)
+        for (let index = 1; index <= vaildNum; index++) {
+            let cur = s.slice(i, i + index)
             path.push(cur)
-            s = s.slice(i)
-            recursion(n + 1, path, s)
-            // 恢复
+            recursion(path, i + index)
             path.pop()
-            s = cur + s
         }
     }
-    function getVaildNum (s) {
+    function getVaild (i) {
         let ans = 1
-        if (s[0] === '0') return 1
-        if (s[1] !== undefined) ans = 2
-        if (s[2] !== undefined) {
-            if ((s[0] | 0) * 100 + (s[1] | 0) * 10 + (s[2] | 0) <= 255) ans = 3
+        if (s[i] !== 0) {
+            if (s[i + 1] !== undefined) {
+                ans = 2
+                if ((s[i] | 0) * 100 + (s[i + 1] | 0) * 10 + (s[i + 2] | 0) <= 255) ans = 3
+            }
         }
         return ans
     }

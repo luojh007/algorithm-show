@@ -15,7 +15,7 @@ function xxxApi (urls = [], max, callback) {
         parallel++
         fetch(urls[i]).then(() => {
             parallel--
-            handle(i++)
+            handle(index++)
             // 任务全部处理完成
             if (parallel === 0) {
                 callback()

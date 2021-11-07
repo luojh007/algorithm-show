@@ -10,7 +10,7 @@ function catchRin (nums = []) {
         let area = (right - left) * Math.min(nums[left], nums[right])
         max = Math.max(max, area)
         if (nums[right] > nums[left]) {
-            right++
+            left++
         } else right--
     }
     return max

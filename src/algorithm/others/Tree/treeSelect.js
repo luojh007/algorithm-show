@@ -37,10 +37,13 @@ function check(tree, value, check) {
     const ans = []
     let arr = [...value, check]
     let alldata = tree.children
+    // 遍历整棵树
     for (let i = 0; i < alldata.length; i++) {
+        // 命中一级
         if (arr.includes(alldata[i].name)) {
             ans.push(alldata[i].name)
         } else {
+            // 命中二级
             let children = alldata[i].children
             let tmp = []
             for (let j = 0; j < children.length; j++) {
@@ -58,12 +61,15 @@ function check(tree, value, check) {
     return ans
 }
 
-function uncheck(tree, value, uncheck) {
+function uncheck (tree, value, uncheck) {
+    // 第一层数组
     let index = value.indexOf(uncheck)
     if (index > -1) {
         value.splice(index, 1)
         return value
     }
+
+    // 第二层数组
     let alldata = tree.children
     let tmp = []
     let name = ''
@@ -72,6 +78,7 @@ function uncheck(tree, value, uncheck) {
         let children = alldata[i].children
         tmp = []
         for (let j = 0; j < children.length; j++) {
+            // 选中的二级对应的父级节点
             if (children[j].name === uncheck) {
                 name = alldata[i].name
             } else {
@@ -82,11 +89,14 @@ function uncheck(tree, value, uncheck) {
             break
         }
     }
+
+    // 删除父节点
     for (let i = 0; i < value.length; i++) {
         if (value[i] !== name) {
             ans.push(value[i])
         }
     }
+    // 新增兄弟节点
     ans.push(...tmp)
     return ans
 }
